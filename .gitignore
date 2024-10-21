@@ -1,4 +1,4 @@
-*/.env
+.env
 
 # Logs
 *logs
@@ -10,12 +10,12 @@
 *lerna-debug.log*
 
 # Node
-*/node_modules
+node_modules
 *.local
 */dist
 
 # Editor directories and files
-*/.vscode/*
+.vscode/*
 !.vscode/extensions.json
 */.DS_Store
 *.suo
