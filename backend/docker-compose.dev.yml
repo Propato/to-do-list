@@ -1,0 +1,47 @@
+services: 
+
+  mysqldb:
+    image: mysql:8
+    container_name: tasks-db
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: unless-stopped
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - database:/var/lib/mysql
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_DATABASE: Tasks-db
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql-db
+    networks:
+      - tasks
+
+  app:
+    container_name: tasks-app
+    build: ./server
+    image: tasks-app:v1
+    command: ["start:dev"]
+    volumes:
+      - ./server/src:/usr/app/src
+    env_file:
+      - ./.env
+    environment:
+      SERVICE_TAGS: dev
+      SERVICE_NAME: node-app
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    depends_on:
+      - mysqldb
+    networks:
+      - tasks
+
+volumes:
+  database:
+
+networks:
+  tasks:
+    driver: bridge
