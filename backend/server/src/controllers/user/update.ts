@@ -22,10 +22,10 @@ export const update = async (req: Request<IUserId, {}, IUser>, res: Response): P
 
     try {
         const pool = await connection();
-        const result: ResultSet = await pool.query(QUERY.SELECT, [userId.userId]);
+        const result: ResultSet = await pool.query(QUERY.SELECT, [Number(userId.userId)]);
         
         if((result[0] as Array<ResultSet>).length > 0){
-            const result: ResultSet = await pool.query(QUERY.UPDATE, [...Object.values(user), userId.userId]);
+            const result: ResultSet = await pool.query(QUERY.UPDATE, [...Object.values(user), Number(userId.userId)]);
 
             user.id = Number(userId.userId);
             user.passhash = ":P"; // Don't send back the passhash

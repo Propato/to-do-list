@@ -19,10 +19,10 @@ export const deleteUser = async (req: Request<IUserId>, res: Response): Promise<
     
     try {
         const pool = await connection();
-        let result: ResultSet = await pool.query(QUERY.SELECT, [userId.userId]);
+        let result: ResultSet = await pool.query(QUERY.SELECT, [Number(userId.userId)]);
         
         if((result[0] as Array<ResultSet>).length > 0){
-            await pool.query(QUERY.DELETE, [userId.userId]);
+            await pool.query(QUERY.DELETE, [Number(userId.userId)]);
             console.info(`[${new Date().toLocaleString()}] Deleted.`);
             
             return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User deleted', userId));
