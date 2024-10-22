@@ -9,7 +9,7 @@ import { HttpResponse } from "./shared/services";
 export class App {
     private readonly app: Application;
 
-    constructor(private readonly port: (string | number) = Number(process.env.SERVER_PORT) || 8080 ){
+    constructor(private readonly port: (string | number) = Number(process.env.SERVER_PORT)){
         this.app = express();
         this.middleWare();
         this.routes();
@@ -31,7 +31,7 @@ export class App {
 
         this.app.get('/', (req: Request, res: Response) => {
             console.info(`[${new Date().toLocaleString()}] Incoming ${req.method}${req.originalUrl} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`);
-            
+
             res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'Welcome to the Backend API of the To-Do list'))
         });
         this.app.all('*', (req: Request, res: Response) => {

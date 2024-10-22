@@ -21,6 +21,14 @@ Onde o usuário realizará o login com o email e a senha (que será encriptada).
 | Typescript | X.X.X |
 | Docker | X.X.X |
 
+### .env
+
+É necessário utilizar um arquivo .env para a configuração de parâmetros como a porta em que a aplicação estará ativa, conexões com o banco de dados e o modo em que a aplicação esta rodando (dev ou prod). Isto pode ser visto no arquivo <a href="./.env_sample">env_sample</a>.
+
+O principal e obrigatório uso para o arquivo env é a definição da porta.
+
+Para os demais valores, a aplicação tem valores padrões pré estabelecidos para o caso de ausência no .env.
+
 ### Scripts
 
 É necessário permitir a execução do <a href="./scripts.sh">script</a> com:
@@ -69,14 +77,6 @@ Para remover a imagem, containers, volume e network criadas, executa-se:
 ```bash
 sudo ./scripts -r | --remove
 ```
-
-## .env (opcional)
-
-É possível utilizar um arquivo .env para a configuração de parâmetros como a porta em que a aplicação estará ativa, conexões com o banco de dados e o modo em que a aplicação esta rodando (dev || prod). Isto pode ser visto no arquivo <a href="./.env_sample">env_sample</a>.
-
-O principal uso para o arquivo env é a configuração da porta.
-
-Contudo, a aplicação tem valores padrões pré estabelecidos para o caso de ausência do .env.
 
 ## Endpoints
 
