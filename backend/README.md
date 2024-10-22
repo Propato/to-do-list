@@ -21,14 +21,6 @@ Onde o usuário realizará o login com o email e a senha (que será encriptada).
 | Typescript | X.X.X |
 | Docker | X.X.X |
 
-### .env
-
-É necessário utilizar um arquivo .env para a configuração de parâmetros como a porta em que a aplicação estará ativa, conexões com o banco de dados e o modo em que a aplicação esta rodando (dev ou prod). Isto pode ser visto no arquivo <a href="./.env_sample">env_sample</a>.
-
-O principal e obrigatório uso para o arquivo env é a definição da porta.
-
-Para os demais valores, a aplicação tem valores padrões pré estabelecidos para o caso de ausência no .env.
-
 ### Scripts
 
 É necessário permitir a execução do <a href="./scripts.sh">script</a> com:
@@ -40,6 +32,16 @@ Assim, é possível ver as opções de comandos executando:
 ```bash
 ./scripts.sh -h | --help
 ```
+
+### .env
+
+É necessário utilizar um arquivo .env para a configuração de parâmetros como a porta em que a aplicação estará ativa, conexões com o banco de dados e o modo em que a aplicação esta rodando (dev ou prod). Isto pode ser visto no arquivo <a href="./.env_sample">env_sample</a>.
+
+O principal e obrigatório uso para o arquivo env é a definição da porta.
+
+Para os demais valores, a aplicação tem valores padrões pré estabelecidos para o caso de ausência no .env.
+
+Como os valores relacionados ao usuário do banco de dados são salvos no volume do container, sempre que fizer uma alteração nas variáveis do usuário, é necessário reiniciar o volume (excluir e criar de novo com o script, -d depois -r). 
 
 ## Comandos (apenas backend)
 

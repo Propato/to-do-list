@@ -12,8 +12,9 @@ services:
       - 3000:3000
     environment:
       MYSQL_DATABASE: Tasks-db
-      MYSQL_USER: ${DB_USER} || user
-      MYSQL_PASSWORD: ${DB_PASSWORD} || password
+      MYSQL_USER: ${DB_USER:-userDefault}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-passwordDefault}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootPasswordDefault}
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql-db
     networks:
