@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import { ObjectSchema, ValidationError } from "yup";
 
-import { Code, Status } from "../enums";
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { HttpResponse } from "../services";
 import { IUser, IUserId, ILogin } from "../../interfaces";
 
@@ -41,7 +41,7 @@ export const validation: TValidation = (validators) => async (req, res, next) =>
         const errorMessage = ( numErrors === 1 ?
             `${numErrors} error occurred` : `${numErrors} errors occurred`
         );
-        return res.status(Code.BAD_REQUEST).json(new HttpResponse(Code.BAD_REQUEST, Status.BAD_REQUEST, errorMessage, AllData, AllErrors));
+        return res.status(StatusCodes.BAD_REQUEST).json(new HttpResponse(StatusCodes.BAD_REQUEST, ReasonPhrases.BAD_REQUEST, errorMessage, AllData, AllErrors));
     }
     return next();
 } 

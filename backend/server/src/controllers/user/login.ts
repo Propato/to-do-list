@@ -1,13 +1,13 @@
 import { Request, RequestHandler, Response } from "express";
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-import { QUERY } from "../../queries/user";
-import { connection } from "../../shared/config";
-import { Code, Status } from "../../shared/enums";
-import { validation } from "../../shared/middlewares";
-import { Crypto, HttpResponse, JWT } from "../../shared/services";
-import { ILogin, VLogin } from "../../interfaces/login";
-import { ResultSet } from "../../shared/types";
 import { IUser } from "../../interfaces";
+import { QUERY } from "../../queries/user";
+import { ResultSet } from "../../shared/types";
+import { connection } from "../../shared/config";
+import { validation } from "../../shared/middlewares";
+import { ILogin, VLogin } from "../../interfaces/login";
+import { Crypto, HttpResponse, JWT } from "../../shared/services";
 
 export const validateLogin: RequestHandler = validation({
     body: VLogin
@@ -31,23 +31,23 @@ export const login = async (req: Request<{}, {}, ILogin>, res: Response): Promis
 
                 if(accessToken === "JWT_KEY_NOT_FOUND"){
                     console.error(accessToken);
-                    return res.status(Code.INTERNAL_SERVER_ERROR).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'An error occurred while generating access token'));
+                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred while generating access token'));
                 }
 
                 console.info(`[${new Date().toLocaleString()}] Logged in.`);
                 user.passhash = ":P";
 
-                return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User logged in', accessToken));
+                return res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User logged in', accessToken));
             }
 
-            return res.status(Code.BAD_REQUEST).send(new HttpResponse(Code.BAD_REQUEST, Status.BAD_REQUEST, 'Invalid password'));
+            return res.status(StatusCodes.BAD_REQUEST).send(new HttpResponse(StatusCodes.BAD_REQUEST, ReasonPhrases.BAD_REQUEST, 'Invalid password'));
         }
         console.info(`[${new Date().toLocaleString()}] Not Found.`);
-        return res.status(Code.NOT_FOUND).send(new HttpResponse(Code.NOT_FOUND, Status.NOT_FOUND, 'Invalid e-mail'));
+        return res.status(StatusCodes.NOT_FOUND).send(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'Invalid email'));
 
     } catch (error: unknown) {
         console.error(error);
 
-        return res.status(Code.INTERNAL_SERVER_ERROR).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'An error occurred'));
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
     }
 };

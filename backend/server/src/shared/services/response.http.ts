@@ -1,9 +1,8 @@
-import { Code } from "../enums/code";
-import { Status } from "../enums/status";
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 export class HttpResponse{
     private timeStamp: string;
-    constructor(private statusCode: Code, private httpStatus: Status, private message: string, private data?: {}, private error?: {}){
+    constructor(private statusCode: StatusCodes, private httpStatus: ReasonPhrases, private message: string, private data?: {}, private error?: {}){
         this.timeStamp = new Date().toLocaleString();
         this.statusCode = statusCode;
         this.httpStatus = httpStatus;

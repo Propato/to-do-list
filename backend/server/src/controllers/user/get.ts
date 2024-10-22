@@ -1,9 +1,9 @@
 import { Request, RequestHandler, Response } from "express";
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { QUERY } from "../../queries/user";
 import { ResultSet } from "../../shared/types";
 import { connection } from "../../shared/config";
-import { Code, Status } from "../../shared/enums";
 import { VUserId } from "../../interfaces";
 import { HttpResponse } from "../../shared/services";
 import { validation } from "../../shared/middlewares";
@@ -23,14 +23,14 @@ export const get = async (req: Request, res: Response): Promise<Response<HttpRes
 
         if((result[0] as Array<ResultSet>).length > 0){
             console.info(`[${new Date().toLocaleString()}] Retrieved.`);
-            return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User retrieved', result[0]));
+            return res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User retrieved', result[0]));
         }
         console.info(`[${new Date().toLocaleString()}] Not Found.`);
-        return res.status(Code.NOT_FOUND).send(new HttpResponse(Code.NOT_FOUND, Status.NOT_FOUND, 'User not found'));
+        return res.status(StatusCodes.NOT_FOUND).send(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'User not found'));
 
     } catch (error: unknown) {
         console.error(error);
 
-        return res.status(Code.INTERNAL_SERVER_ERROR).send(new HttpResponse(Code.INTERNAL_SERVER_ERROR, Status.INTERNAL_SERVER_ERROR, 'An error occurred'));
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
     }
 };

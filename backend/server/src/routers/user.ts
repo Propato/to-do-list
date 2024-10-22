@@ -15,8 +15,8 @@ UserRouter.route('/login')
 
 // Este é um método puramente auxiliar para visualizar os dados.
 if(process.env.APP_MODE === "dev")
-UserRouter.route('/all')
-    .get(UserController.getAll);
+    UserRouter.route('/all')
+        .get(UserController.getAll);
 
 
 export default UserRouter;

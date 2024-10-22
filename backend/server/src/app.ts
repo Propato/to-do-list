@@ -1,9 +1,9 @@
 import ip from "ip";
 import cors from "cors";
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import express, { Application, Request, Response } from "express";
 
 import { RoutersController } from "./routers";
-import { Code, Status } from "./shared/enums";
 import { HttpResponse } from "./shared/services";
 
 export class App {
@@ -37,12 +37,12 @@ export class App {
         this.app.get('/', (req: Request, res: Response) => {
             console.info(`[${new Date().toLocaleString()}] Incoming ${req.method}${req.originalUrl} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`);
 
-            res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'Welcome to the Backend API of the To-Do list'))
+            res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'Welcome to the Backend API of the To-Do list'))
         });
         this.app.all('*', (req: Request, res: Response) => {
             console.info(`[${new Date().toLocaleString()}] Incoming ${req.method}${req.originalUrl} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`);
 
-            res.status(Code.NOT_FOUND).send(new HttpResponse(Code.NOT_FOUND, Status.NOT_FOUND, "Route does not exist on the server."))
+            res.status(StatusCodes.NOT_IMPLEMENTED).send(new HttpResponse(StatusCodes.NOT_IMPLEMENTED, ReasonPhrases.NOT_IMPLEMENTED, "Route does not exist on the server."))
         });
     }
 }
