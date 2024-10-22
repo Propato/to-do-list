@@ -10,7 +10,7 @@ type TValidator = Record<TField, ObjectSchema<IUser | IUserId>>
 type TValidation = (validators: Partial<TValidator>) => RequestHandler;
 
 export const validation: TValidation = (validators) => async (req, res, next) => {
-    console.info(`[${new Date().toLocaleString()}] Incoming ${req.method}${req.originalUrl} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}`);
+    console.info(`[${new Date().toLocaleString()}] Incoming ${req.method} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}${req.originalUrl}`);
     
     const AllData: Record<string, any> = {};
     const AllErrors: Record<string, Record<string, string>> = {};

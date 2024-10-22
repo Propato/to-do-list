@@ -10,9 +10,12 @@ export const validateDelete: RequestHandler = validation({
 });
 
 export const deleteUser = async (req: Request<IUserId>, res: Response): Promise<Response<HttpResponse>> => {
+    console.info(`[${new Date().toLocaleString()}] Validated.`);
+
     const userId: IUserId = { ...req.params };
     
     try {
+        console.info(`[${new Date().toLocaleString()}] Deleted.`);
         return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User deleted', userId));
     } catch (error: unknown) {
         console.error(error);

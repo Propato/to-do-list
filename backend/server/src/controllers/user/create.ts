@@ -10,13 +10,15 @@ export const validateCreate: RequestHandler = validation({
 });
 
 export const create = async (req: Request<{}, {}, IUser>, res: Response): Promise<Response<HttpResponse>> => {
-    console.info(`Validated.`);
+    console.info(`[${new Date().toLocaleString()}] Validated.`);
 
     let user: IUser = { ...req.body };
     user.passhash = await hashPassword(user.passhash);
 
     try {
         user.passhash = ":P"; // Don't send back the passhash
+
+        console.info(`[${new Date().toLocaleString()}] Created.`);
         return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User created', user ));
     } catch (error: unknown) {
         console.error(error);

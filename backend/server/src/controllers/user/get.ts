@@ -10,9 +10,11 @@ export const validateGet: RequestHandler = validation({
 });
 
 export const get = async (req: Request<IUserId>, res: Response): Promise<Response<HttpResponse>> => {
+    console.info(`[${new Date().toLocaleString()}] Validated.`);
     const userId: IUserId = { ...req.params };
     
     try {
+        console.info(`[${new Date().toLocaleString()}] Retrieved.`);
         return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User retrieved', userId));
     } catch (error: unknown) {
         console.error(error);

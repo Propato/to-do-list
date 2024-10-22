@@ -11,11 +11,13 @@ export const validateUpdate: RequestHandler = validation({
 });
 
 export const update = async (req: Request<IUserId, {}, IUser>, res: Response): Promise<Response<HttpResponse>> => {
+    console.info(`[${new Date().toLocaleString()}] Validated.`);
     let user: IUser = { ...req.body };
     const userId: IUserId = { ...req.params };
     user.id = Number(userId.userId);
 
     try {
+        console.info(`[${new Date().toLocaleString()}] Updated.`);
         return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User updated', user));
 
     } catch (error: unknown) {
