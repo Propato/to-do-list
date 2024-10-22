@@ -5,12 +5,12 @@ export interface IUser {
 
     name: string,
     email:string,
-    passhash: string
+    password: string
 }
 export const VUser: yup.ObjectSchema<IUser> = yup.object().shape({
     id: yup.number().integer().moreThan(0).optional(),
 
     name: yup.string().min(2).max(50).required(),
     email: yup.string().email().min(5).max(60).required(),
-    passhash: yup.string().min(8).required()
+    password: yup.string().min(8).max(30).required()
 });

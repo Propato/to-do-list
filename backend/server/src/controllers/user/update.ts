@@ -18,7 +18,7 @@ export const update = async (req: Request<{}, {}, IUser>, res: Response): Promis
 
     let user: IUser = { ...req.body };
     const userId = Number(String(req.headers.userId));
-    user.passhash = await Crypto.hashPassword(user.passhash);
+    user.password = await Crypto.hashPassword(user.password);
 
     try {
         const pool = await connection();

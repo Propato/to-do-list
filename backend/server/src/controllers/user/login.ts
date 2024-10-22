@@ -25,7 +25,7 @@ export const login = async (req: Request<{}, {}, ILogin>, res: Response): Promis
         if(result.length > 0){
             let user = result[0] as unknown as IUser;
 
-            if(await Crypto.comparePassword(login.passhash, user.passhash)){
+            if(await Crypto.comparePassword(login.password, user.password)){
 
                 const accessToken = JWT.login({ userId: Number(user.id) });
 

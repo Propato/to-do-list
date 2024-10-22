@@ -16,7 +16,7 @@ export const create = async (req: Request<{}, {}, IUser>, res: Response): Promis
     console.info(`[${new Date().toLocaleString()}] Validated`);
 
     let user: IUser = { ...req.body };
-    user.passhash = await Crypto.hashPassword(user.passhash);
+    user.password = await Crypto.hashPassword(user.password);
 
     try {
         const pool = await connection();
