@@ -13,7 +13,7 @@ export const getAll = async (req: Request, res: Response): Promise<Response<Http
         const pool = await connection();
         const result: ResultSet = await pool.query(QUERY.SELECT_ALL);
 
-        console.info(`[${new Date().toLocaleString()}] Retrieved.`);
+        console.info(`[${new Date().toLocaleString()}] Retrieved`);
         return res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'Users retrieved', result[0]));
     } catch (error: unknown) {
         console.error(error);

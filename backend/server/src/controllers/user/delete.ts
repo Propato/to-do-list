@@ -13,7 +13,7 @@ export const validateDelete: RequestHandler = validation({
 });
 
 export const deleteUser = async (req: Request, res: Response): Promise<Response<HttpResponse>> => {
-    console.info(`[${new Date().toLocaleString()}] Validated.`);
+    console.info(`[${new Date().toLocaleString()}] Validated`);
 
     const userId = Number(String(req.headers.userId));
     
@@ -23,11 +23,12 @@ export const deleteUser = async (req: Request, res: Response): Promise<Response<
         
         if((result[0] as Array<ResultSet>).length > 0){
             await pool.query(QUERY.DELETE, [userId]);
-            console.info(`[${new Date().toLocaleString()}] Deleted.`);
-            
+
+            console.info(`[${new Date().toLocaleString()}] Deleted`);
             return res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User deleted'));
         }
-        console.info(`[${new Date().toLocaleString()}] Not Found.`);
+        
+        console.info(`[${new Date().toLocaleString()}] Not Found`);
         return res.status(StatusCodes.NOT_FOUND).send(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'User not found'));
 
     } catch (error: unknown) {

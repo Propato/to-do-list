@@ -14,7 +14,7 @@ export const validateUpdate: RequestHandler = validation({
 });
 
 export const update = async (req: Request<{}, {}, IUser>, res: Response): Promise<Response<HttpResponse>> => {
-    console.info(`[${new Date().toLocaleString()}] Validated.`);
+    console.info(`[${new Date().toLocaleString()}] Validated`);
 
     let user: IUser = { ...req.body };
     const userId = Number(String(req.headers.userId));
@@ -25,18 +25,20 @@ export const update = async (req: Request<{}, {}, IUser>, res: Response): Promis
         const result: ResultSet = await pool.query(QUERY.SELECT_NAME, [userId]);
         
         if((result[0] as Array<ResultSet>).length > 0){
-            const result: ResultSet = await pool.query(QUERY.UPDATE, [...Object.values(user), userId]);
+            await pool.query(QUERY.UPDATE, [...Object.values(user), userId]);
 
-            console.info(`[${new Date().toLocaleString()}] Updated.`);
-
+            console.info(`[${new Date().toLocaleString()}] Updated`);
             return res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User updated'));
         }
-        console.info(`[${new Date().toLocaleString()}] Not Found.`);
-
+        
+        console.info(`[${new Date().toLocaleString()}] Not Found`);
         return res.status(StatusCodes.NOT_FOUND).send(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'User not found'));
 
-    } catch (error: unknown) {
+    } catch (error: any) {
         console.error(error);
+
+        if (error.code === 'ER_DUP_ENTRY') {
+            return res.status(StatusCodes.CONFLICT).json(new HttpResponse(StatusCodes.CONFLICT, ReasonPhrases.CONFLICT, '1 error occurred', undefined, { "body": { "email": "Email is already in use" }}));}
 
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
     }

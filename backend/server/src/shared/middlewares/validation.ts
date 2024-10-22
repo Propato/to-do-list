@@ -12,7 +12,6 @@ type TValidation = (validators: Partial<TValidator>) => RequestHandler;
 export const validation: TValidation = (validators) => async (req, res, next) => {
     console.info(`[${new Date().toLocaleString()}] Incoming ${req.method} Request from ${req.rawHeaders[0]} ${req.rawHeaders[1]}${req.originalUrl}`);
     
-    const AllData: Record<string, any> = {};
     const AllErrors: Record<string, Record<string, string>> = {};
     let numErrors = 0;
 
@@ -33,7 +32,6 @@ export const validation: TValidation = (validators) => async (req, res, next) =>
             });
 
             AllErrors[field] = errors;
-            AllData[field] = req[field as TField];
         }
     });
 
@@ -41,7 +39,9 @@ export const validation: TValidation = (validators) => async (req, res, next) =>
         const errorMessage = ( numErrors === 1 ?
             `${numErrors} error occurred` : `${numErrors} errors occurred`
         );
-        return res.status(StatusCodes.BAD_REQUEST).json(new HttpResponse(StatusCodes.BAD_REQUEST, ReasonPhrases.BAD_REQUEST, errorMessage, AllData, AllErrors));
+
+        console.info(`[${new Date().toLocaleString()}] Errors: ${AllErrors}`);
+        return res.status(StatusCodes.BAD_REQUEST).json(new HttpResponse(StatusCodes.BAD_REQUEST, ReasonPhrases.BAD_REQUEST, errorMessage, undefined, AllErrors));
     }
     return next();
 } 
