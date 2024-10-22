@@ -3,10 +3,10 @@ import { ObjectSchema, ValidationError } from "yup";
 
 import { Code, Status } from "../enums";
 import { HttpResponse } from "../services";
-import { IUser, IUserId } from "../../interfaces";
+import { IUser, IUserId, ILogin } from "../../interfaces";
 
 type TField = "body" | "params" | "query" | "header";
-type TValidator = Record<TField, ObjectSchema<IUser | IUserId>>
+type TValidator = Record<TField, ObjectSchema<IUser | IUserId | ILogin>>
 type TValidation = (validators: Partial<TValidator>) => RequestHandler;
 
 export const validation: TValidation = (validators) => async (req, res, next) => {

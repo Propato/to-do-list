@@ -35,13 +35,13 @@ Assim, é possível ver as opções de comandos executando:
 
 ### .env
 
-É necessário utilizar um arquivo .env para a configuração de parâmetros como a porta em que a aplicação estará ativa, conexões com o banco de dados e o modo em que a aplicação esta rodando (dev ou prod). Isto pode ser visto no arquivo <a href="./.env_sample">env_sample</a>.
+É necessário utilizar um arquivo .env para a configuração de parâmetros como a porta em que a aplicação estará ativa, conexões com o banco de dados, modo da aplicação (dev ou prod) e chave para autenticação. Isto pode ser visto no arquivo <a href="./.env_sample">env_sample</a>.
 
-O principal e obrigatório uso para o arquivo env é a definição da porta.
+O principal e obrigatório uso para o arquivo env é a definição da porta e da chave de autenticação.
 
-Para os demais valores, a aplicação tem valores padrões pré estabelecidos para o caso de ausência no .env.
+Para as demais variáveis, a aplicação tem valores padrões pré estabelecidos para o caso de ausência no .env.
 
-Como os valores relacionados ao usuário do banco de dados são salvos no volume do container, sempre que fizer uma alteração nas variáveis do usuário, é necessário reiniciar o volume (excluir e criar de novo com o script, -d depois -r). 
+Para garantir funcionamento correto, sempre que alterar o .env, é recomendado encerrar, remover e iniciar o container (com -d, -r e -b no script).  
 
 ## Comandos (apenas backend)
 
