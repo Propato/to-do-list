@@ -1,6 +1,9 @@
+import { ResultSetHeader } from "mysql2";
 import { Request, RequestHandler, Response } from "express";
 
+import { QUERY } from "../../queries/user";
 import { IUser, VUser } from "../../interfaces";
+import { connection } from "../../shared/config";
 import { Code, Status } from "../../shared/enums";
 import { validation } from "../../shared/middlewares";
 import { hashPassword, HttpResponse } from "../../shared/services";
@@ -16,10 +19,16 @@ export const create = async (req: Request<{}, {}, IUser>, res: Response): Promis
     user.passhash = await hashPassword(user.passhash);
 
     try {
+        const pool = await connection();
+        const result = (await pool.query(QUERY.CREATE, Object.values(user))) as Array<ResultSetHeader>;
+    
+        user.id = result[0].insertId;
         user.passhash = ":P"; // Don't send back the passhash
 
         console.info(`[${new Date().toLocaleString()}] Created.`);
+        
         return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User created', user ));
+        
     } catch (error: unknown) {
         console.error(error);
 

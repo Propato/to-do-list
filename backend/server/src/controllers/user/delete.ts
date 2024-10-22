@@ -1,5 +1,8 @@
 import { Request, RequestHandler, Response } from "express";
 
+import { QUERY } from "../../queries/user";
+import { ResultSet } from "../../shared/types";
+import { connection } from "../../shared/config";
 import { Code, Status } from "../../shared/enums";
 import { IUserId, VUserId } from "../../interfaces";
 import { HttpResponse } from "../../shared/services";
@@ -15,8 +18,17 @@ export const deleteUser = async (req: Request<IUserId>, res: Response): Promise<
     const userId: IUserId = { ...req.params };
     
     try {
-        console.info(`[${new Date().toLocaleString()}] Deleted.`);
-        return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User deleted', userId));
+        const pool = await connection();
+        let result: ResultSet = await pool.query(QUERY.SELECT, [userId.userId]);
+        
+        if((result[0] as Array<ResultSet>).length > 0){
+            await pool.query(QUERY.DELETE, [userId.userId]);
+            console.info(`[${new Date().toLocaleString()}] Deleted.`);
+            
+            return res.status(Code.OK).send(new HttpResponse(Code.OK, Status.OK, 'User deleted', userId));
+        }
+        console.info(`[${new Date().toLocaleString()}] Not Found.`);
+        return res.status(Code.NOT_FOUND).send(new HttpResponse(Code.NOT_FOUND, Status.NOT_FOUND, 'User not found', userId));
     } catch (error: unknown) {
         console.error(error);
 
