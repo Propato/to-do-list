@@ -43,5 +43,6 @@ export const validation: TValidation = (validators) => async (req, res, next) =>
         console.info(`[${new Date().toLocaleString()}] Errors: ${AllErrors}`);
         return res.status(StatusCodes.BAD_REQUEST).json(new HttpResponse(StatusCodes.BAD_REQUEST, ReasonPhrases.BAD_REQUEST, errorMessage, undefined, AllErrors));
     }
+    console.info(`[${new Date().toLocaleString()}] Validated`);
     return next();
 } 

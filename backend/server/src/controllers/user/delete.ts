@@ -13,7 +13,6 @@ export const validateDelete: RequestHandler = validation({
 });
 
 export const deleteUser = async (req: Request, res: Response): Promise<Response<HttpResponse>> => {
-    console.info(`[${new Date().toLocaleString()}] Validated`);
 
     const userId = Number(String(req.headers.userId));
     
@@ -25,15 +24,15 @@ export const deleteUser = async (req: Request, res: Response): Promise<Response<
             await pool.query(QUERY.DELETE, [userId]);
 
             console.info(`[${new Date().toLocaleString()}] Deleted`);
-            return res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User deleted'));
+            return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User deleted'));
         }
         
         console.info(`[${new Date().toLocaleString()}] Not Found`);
-        return res.status(StatusCodes.NOT_FOUND).send(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'User not found'));
+        return res.status(StatusCodes.NOT_FOUND).json(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'User not found'));
 
     } catch (error: unknown) {
         console.error(error);
 
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
     }
 };

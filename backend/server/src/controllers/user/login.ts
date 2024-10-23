@@ -14,7 +14,6 @@ export const validateLogin: RequestHandler = validation({
 });
 
 export const login = async (req: Request<{}, {}, ILogin>, res: Response): Promise<Response<HttpResponse>> => {
-    console.info(`[${new Date().toLocaleString()}] Validated`);
 
     let login: ILogin = { ...req.body };
 
@@ -31,23 +30,23 @@ export const login = async (req: Request<{}, {}, ILogin>, res: Response): Promis
 
                 if(accessToken === "JWT_KEY_NOT_FOUND"){
                     console.error(accessToken);
-                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred while generating access token'));
+                    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred while generating access token'));
                 }
 
                 console.info(`[${new Date().toLocaleString()}] Logged in`);
-                return res.status(StatusCodes.OK).send(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User logged in', accessToken));
+                return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User logged in', accessToken));
             }
 
             console.info(`[${new Date().toLocaleString()}] Invalid password`);
-            return res.status(StatusCodes.BAD_REQUEST).send(new HttpResponse(StatusCodes.BAD_REQUEST, ReasonPhrases.BAD_REQUEST, 'Invalid password'));
+            return res.status(StatusCodes.BAD_REQUEST).json(new HttpResponse(StatusCodes.BAD_REQUEST, ReasonPhrases.BAD_REQUEST, 'Invalid password'));
         }
         
         console.info(`[${new Date().toLocaleString()}] Invalid email`);
-        return res.status(StatusCodes.NOT_FOUND).send(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'Invalid email'));
+        return res.status(StatusCodes.NOT_FOUND).json(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'Invalid email'));
 
     } catch (error: unknown) {
         console.error(error);
 
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
     }
 };

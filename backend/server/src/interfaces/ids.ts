@@ -5,5 +5,5 @@ export interface IUserId {
 }
 
 export const VUserId: yup.ObjectSchema<IUserId> = yup.object().shape({
-    userId: yup.number().integer().moreThan(0).required()
+    userId:     yup.number().integer().moreThan(0).required()
 });

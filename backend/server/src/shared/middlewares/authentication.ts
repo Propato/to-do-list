@@ -24,7 +24,7 @@ export const authentication: RequestHandler = (req, res, next) => {
     
     if(data === "JWT_KEY_NOT_FOUND"){
         console.info(`[${new Date().toLocaleString()}] JWT_KEY not found in .env`);
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred while generating access token'));
+        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred while generating access token'));
     }
     
     req.headers.userId = String(data.userId);

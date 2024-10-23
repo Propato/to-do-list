@@ -1,4 +1,3 @@
-import { ResultSetHeader } from "mysql2";
 import { Request, RequestHandler, Response } from "express";
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
@@ -13,7 +12,6 @@ export const validateCreate: RequestHandler = validation({
 });
 
 export const create = async (req: Request<{}, {}, IUser>, res: Response): Promise<Response<HttpResponse>> => {
-    console.info(`[${new Date().toLocaleString()}] Validated`);
 
     let user: IUser = { ...req.body };
     user.password = await Crypto.hashPassword(user.password);
