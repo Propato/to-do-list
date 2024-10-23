@@ -10,7 +10,7 @@ CREATE TABLE `User` (
     
     `name` VARCHAR(50) NOT NULL,
     `email` VARCHAR(60) NOT NULL UNIQUE,
-    `password` VARCHAR(30) NOT NULL
+    `password` VARCHAR(150) NOT NULL
 );
 
 -- Task table definition.
