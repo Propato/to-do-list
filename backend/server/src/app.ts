@@ -10,12 +10,7 @@ import { authentication } from "./shared/middlewares";
 export class App {
     private readonly app: Application;
 
-    constructor(private readonly port: (string | number) = Number(process.env.SERVER_PORT)){
-        if(!Number(process.env.SERVER_PORT)){
-            console.log("Error: SERVER_PORT not found in .env");
-            process.exit(1);
-        }
-
+    constructor(private readonly port: (string | number) = process.env.SERVER_PORT || 8000){
         this.app = express();
         this.middleWare();
         this.routes();
