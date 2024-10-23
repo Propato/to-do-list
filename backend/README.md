@@ -91,11 +91,9 @@ sudo ./scripts -r | --remove
 | :----------: | :-------------: |
 | name | 2 <= tamanho <= 50 |
 | name | Obrigatório |
-| :----------: | :-------------: |
 | email | 5 <= tamanho <= 60 |
 | email | incluir @ no meio |
 | email | Obrigatório |
-| :----------: | :-------------: |
 | password | 8 <= tamanho <= 30 |
 | password | Obrigatório |
 
@@ -105,13 +103,10 @@ sudo ./scripts -r | --remove
 | :----------: | :-------------: |
 | title | 3 <= tamanho <= 100 |
 | title | Obrigatório |
-| :----------: | :-------------: |
 | description | tamanho <= 300 |
 | description | Opcional |
-| :----------: | :-------------: |
 | deadline | Data futura |
 | deadline | Opcional |
-| :----------: | :-------------: |
 | status | "pending" ou "complete" |
 | status | Sṍ pode ser "complete" se estiver dentro do prazo |
 | status | Opcional |
@@ -129,21 +124,21 @@ A API desenvolvida pode ser acessada pelo <a href="localhost">localhost</a> pass
     "Método": "POST",
     "Url": "/users",
     "Body": {
-        "name": string,
-        "email": email,
-        "password": string
+        "name": "string",
+        "email": "email",
+        "password": "string"
     }
 }
 ```
 
-Chamada bem sucedida:
+Retorno bem sucedido:
 
 ```json
 {
     "statusCode": 201,
     "httpStatus": "Created",
     "message": "User created",
-    "timeStamp": datetime
+    "timeStamp": "datetime"
 }
 ```
 
@@ -154,11 +149,12 @@ Chamada bem sucedida:
     "Método": "GET",
     "Url": "/users",
     "Headers": {
-        "authorization": Bearer Token
+        "authorization": "Bearer Token"
     }
 }
+```
 
-Chamada bem sucedida:
+Retorno bem sucedido:
 
 ```json
 {
@@ -167,10 +163,10 @@ Chamada bem sucedida:
     "message": "User retrieved",
     "data": [
         {
-            "name": userName
+            "name": "userName"
         }
     ],
-    "timeStamp": datetime
+    "timeStamp": "datetime"
 }
 ```
 
@@ -181,23 +177,24 @@ Chamada bem sucedida:
     "Método": "PUT",
     "Url": "/users",
     "Headers": {
-        "authorization": Bearer Token
+        "authorization": "Bearer Token"
     },
     "body": {
-        "name": string,
-        "email": email,
-        "password": string
+        "name": "string",
+        "email": "email",
+        "password": "string"
     }
 }
+```
 
-Chamada bem sucedida:
+Retorno bem sucedido:
 
 ```json
 {
     "statusCode": 200,
     "httpStatus": "OK",
     "message": "User updated",
-    "timeStamp": datetime
+    "timeStamp": "datetime"
 }
 ```
 
@@ -208,18 +205,19 @@ Chamada bem sucedida:
     "Método": "DELETE",
     "Url": "/users",
     "Headers": {
-        "authorization": Bearer Token
+        "authorization": "Bearer Token"
     },
 }
+```
 
-Chamada bem sucedida:
+Retorno bem sucedido:
 
 ```json
 {
     "statusCode": 200,
     "httpStatus": "OK",
     "message": "User deleted",
-    "timeStamp": datetime
+    "timeStamp": "datetime"
 }
 ```
 
@@ -230,20 +228,21 @@ Chamada bem sucedida:
     "Método": "GET",
     "Url": "/users/login",
     "Body": {
-        "email": email,
-        "password": string
+        "email": "email",
+        "password": "string"
     }
 }
+```
 
-Chamada bem sucedida:
+Retorno bem sucedido:
 
 ```json
 {
     "statusCode": 200,
     "httpStatus": "OK",
     "message": "User logged in",
-    "data": Bearer Token,
-    "timeStamp": datetime
+    "data": "Bearer Token",
+    "timeStamp": "datetime"
 }
 ```
 
@@ -256,16 +255,17 @@ Endpoint exclusivo para ambiente dev.
     "Método": "GET",
     "Url": "/users/all"
 }
+```
 
-Chamada bem sucedida:
+Retorno bem sucedido:
 
 ```json
 {
     "statusCode": 200,
     "httpStatus": "OK",
     "message": "Users retrieved",
-    "data": [ users ],
-    "timeStamp": datetime
+    "data": [ "users" ],
+    "timeStamp": "datetime"
 }
 ```
 
