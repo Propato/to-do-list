@@ -61,7 +61,7 @@ As ferramentas escolhidas para o gerenciamento do backend foram:
 | :----------: | :-------------: | :------: | :------: |
 | TypeScript | Node | MySQL | Docker |
 
->> Mais informações (como endpoints e as regras aplicadas) na pasta <a href="./backend/">backend</a>.
+> Mais informações (como endpoints e as regras aplicadas) na pasta <a href="./backend/">backend</a>.
 
 #### Frontend
 
@@ -69,11 +69,11 @@ Foi construído uma interface visualmente agradável, responsiva e funcional, ap
 
 As ferramentas escolhidas para o gerenciamento do backend foram:
 
-| <img alt="Icon TypeScript" title="TypeScript" height="60" src="https://github.com/Propato/movies-review/assets/84464307/a3c73786-1f20-4910-a20d-75bb006bd31e"> | <img alt="Icon React" title="React" height="60" src=""> | <img alt="Icon Bootstrap" title="Bootstrap" height="60" src=""> |
-| :----------: | :-------------: | :------: | :------: |
+| <img alt="Icon TypeScript" title="TypeScript" height="60" src="https://github.com/Propato/movies-review/assets/84464307/a3c73786-1f20-4910-a20d-75bb006bd31e"> | <img alt="Icon React" title="React" height="60" src="https://github.com/user-attachments/assets/26ad264a-fb5f-4133-806a-41b13bd0bb34"> | <img alt="Icon Bootstrap" title="Bootstrap" height="60" src="https://github.com/user-attachments/assets/677f865b-8e77-4a24-b56c-0ee6ebc3ae83"> |
+| :----------: | :-------------: | :------: |
 | TypeScript | React | Bootstrap |
 
->> Mais informações (como rotas e as regras aplicadas) na pasta <a href="./frontend/">frontend</a>.
+> Mais informações (como rotas e as regras aplicadas) na pasta <a href="./frontend/">frontend</a>.
 
 ### Pré-requisitos
 
