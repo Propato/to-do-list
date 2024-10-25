@@ -117,7 +117,7 @@ sudo ./scripts -b
 ### Encerrando App
 
 ```bash
-Crtl + C
+Ctrl + C
 sudo ./scripts -d
 ```
 
