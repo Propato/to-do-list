@@ -1,48 +1,112 @@
 # Frontend
 
-## Getting Started with Create React App
+O frontend deste projeto consiste em uma aplicação com React, Typescript e Bootstrap para criar uma interface web que permita ao usuário:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ - Logar
+ - Criar perfil
+ - Visualizar perfil
+ - Editar Perfil
+ - Excluir Perfil
+ - Criar tarefas
+ - Visualizar tarefas em tabela paginada
+ - Filtrar tarefas por status
+ - Buscar tarefas por título e descrição
+ - Marcar tarefas como concluídas
+ - Editar tarefas
+ - Excluir tarefas
 
-## Available Scripts
+Todas essas funções implementadas seguem as regras de negócio propostas.
 
-In the project directory, you can run:
+O login do usuário é mantido através do armazenamento do token de autenticação do backend no Local Storage do navegador. 
 
-### `npm start`
+Tudo neste readme trata EXCLUSIVAMENTE sobre o frontend.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Pré-requisitos
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Versões utilizadas
 
-### `npm test`
+| Ferramenta | Versão |
+| :----------: | :-------------: |
+| Nodejs | 18.19.1 |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### .env
 
-### `npm run build`
+É usado um .env para definir a url da API do banco de dados para maior versatilidade, contudo, há valores padrões pré estabelecidos para o caso de ausência do .env.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Comandos
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Executar
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Com o backend já em execução:
 
-### `npm run eject`
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Encerrar
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+Ctrl + C
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Regras de Negócio
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Usuários
 
-## Learn More
+| Campo | Regras |
+| :----------: | :-------------: |
+| name | 2 <= tamanho <= 50 |
+| name | Obrigatório |
+| email | 5 <= tamanho <= 60 |
+| email | incluir @ no meio |
+| email | Obrigatório |
+| password | 8 <= tamanho <= 30 |
+| password | Obrigatório |
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Tarefas
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Campo | Regras |
+| :----------: | :-------------: |
+| title | 3 <= tamanho <= 100 |
+| title | Obrigatório |
+| description | tamanho <= 300 |
+| description | Opcional |
+| deadline | Data futura |
+| deadline | Obrigatório |
+| status | "pending" ou "complete" |
+| status | Sṍ pode ser "complete" se estiver dentro do prazo |
+| status | Obrigatório |
+
+## Rotas
+
+Temos, a partir da rota inicial: <a href="localhost:3000">localhost:3000</a>
+
+Usuários não logados que tentarem acessar rotas que necessitam da autenticação serão redirecionados para a tela de login.
+
+### /
+
+Página inicial e tabela de tarefas. Acessível somente a usuários logados.
+
+É possível realizar a exclusão, troca de status, busca e filtragem das tarefas nesta página.
+
+### /user/profile
+
+Página do perfil do usuário, permite edição do perfil e exclusão. Acessível somente a usuários logados.
+
+### /task/new
+
+Página de criação de tarefa. Acessível somente a usuários logados.
+
+### /task/edit/:taskId
+
+Página de edição de tarefa, também permite sua exclusão. Acessível somente a usuários logados.
+
+### /user/new
+
+Página de criação de usuário. Acessível a todos os usuários deslogados.
+
+### *
+
+Qualquer outra rota redirecionará o usuário para a página inicial.
+
+<h6 align="center">by David Propato <a href="https://github.com/Propato">@Propato</a></h6>
