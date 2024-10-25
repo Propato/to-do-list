@@ -16,6 +16,6 @@ export const VTask: yup.ObjectSchema<ITask> = yup.object().shape({
 
     title:          yup.string().min(3).max(100).required(),
     description:    yup.string().max(300).optional(),
-    deadline:       yup.date().optional(),
+    deadline:       yup.date().min(new Date()).optional(),
     status:         yup.string().oneOf(["pending", "complete"]).optional(),
 });

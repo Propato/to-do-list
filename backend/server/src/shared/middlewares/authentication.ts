@@ -2,7 +2,7 @@ import { RequestHandler } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { ResultSet } from '../types';
-import { connection } from '../config';
+import { pool } from '../config';
 import { QUERY } from '../../queries/user';
 import { HttpResponse, JWT } from "../services";
 
@@ -32,8 +32,7 @@ export const authentication: RequestHandler = async (req, res, next) => {
 
     // If the user no longer exists, but the client still has the token.
     try {
-        const pool = await connection();
-        const result: ResultSet = await pool.query(QUERY.SELECT_NAME, [Number(data.userId)]);
+        const result: ResultSet = await pool.query(QUERY.SELECT, [Number(data.userId)]);
 
         if((result[0] as Array<ResultSet>).length === 0){
             console.info(`[${new Date().toLocaleString()}] Not Found in authentication`);

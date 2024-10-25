@@ -11,7 +11,7 @@ UserRouter.route('/')
     .delete(authentication, UserController.validateDelete, UserController.deleteUser);
     
 UserRouter.route('/login')
-    .get(UserController.validateLogin, UserController.login);
+    .post(UserController.validateLogin, UserController.login);
 
 // Este é um método puramente auxiliar para visualizar os dados.
 if(process.env.APP_MODE === "dev")

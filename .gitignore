@@ -1,4 +1,5 @@
 .env
+notes.txt
 
 # Logs
 *logs
@@ -9,10 +10,12 @@
 *pnpm-debug.log*
 *lerna-debug.log*
 
-# Node
+# dependencies
 node_modules
 *.local
 */dist
+.pnp
+.pnp.js
 
 # Editor directories and files
 .vscode/*
@@ -23,3 +26,9 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
+
+# testing
+coverage
+
+# production
+build

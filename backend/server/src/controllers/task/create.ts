@@ -5,7 +5,7 @@ import { ITask, VTask, VUserId } from "../../interfaces";
 import { QUERY } from "../../queries/task";
 import { HttpResponse } from "../../shared/services";
 import { validation } from "../../shared/middlewares";
-import { connection } from "../../shared/config";
+import { pool } from "../../shared/config";
 
 export const validateCreate: RequestHandler = validation({
     body: VTask,
@@ -24,9 +24,7 @@ export const create = async (req: Request<{}, {}, ITask>, res: Response): Promis
     const userId = Number(String(req.headers.userId));
     
     try {
-        const pool = await connection();
-        await pool.query(QUERY.CREATE, [userId, ...Object.values(task)]);
-        // await pool.query(QUERY.CREATE, [userId, task.title, task.description, task.deadline, task.status]);
+        await pool.query(QUERY.CREATE, [userId, task.title, task.description, task.deadline, task.status]);
 
         console.info(`[${new Date().toLocaleString()}] Created`);
         return res.status(StatusCodes.CREATED).json(new HttpResponse(StatusCodes.CREATED, ReasonPhrases.CREATED, 'Task created'));

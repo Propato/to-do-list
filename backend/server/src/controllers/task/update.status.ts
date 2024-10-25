@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { QUERY } from "../../queries/task";
 import { ResultSet } from "../../shared/types";
-import { connection } from "../../shared/config";
+import { pool } from "../../shared/config";
 import { validation } from "../../shared/middlewares";
 import { HttpResponse } from "../../shared/services";
 import { IStatus, VStatus, VUserId } from "../../interfaces";
@@ -20,7 +20,6 @@ export const updateStatus = async (req: Request<{}, {}, IStatus>, res: Response)
     const userId = Number(String(req.headers.userId));
 
     try {
-        const pool = await connection();
         let result: ResultSet = await pool.query(QUERY.SELECT, [Number(status.taskId), userId]);
         
         if((result[0] as Array<ResultSet>).length > 0){

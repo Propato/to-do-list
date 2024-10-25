@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { QUERY } from "../../queries/user";
 import { ResultSet } from "../../shared/types";
-import { connection } from "../../shared/config";
+import { pool } from "../../shared/config";
 import { VUserId } from "../../interfaces";
 import { HttpResponse } from "../../shared/services";
 import { validation } from "../../shared/middlewares";
@@ -17,13 +17,12 @@ export const get = async (req: Request, res: Response): Promise<Response<HttpRes
     const userId = Number(String(req.headers.userId));
     
     try {
-        const pool = await connection();
-        const result: ResultSet = await pool.query(QUERY.SELECT_NAME, [userId]);
+        const result: ResultSet = await pool.query(QUERY.SELECT, [userId]);
 
         if((result[0] as Array<ResultSet>).length > 0){
             
             console.info(`[${new Date().toLocaleString()}] Retrieved`);
-            return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User retrieved', result[0]));
+            return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User retrieved', (result[0] as Array<ResultSet>)[0]));
         }
 
         console.info(`[${new Date().toLocaleString()}] Not Found`);
