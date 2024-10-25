@@ -1,9 +1,10 @@
+import { ITask } from "../../../interfaces";
 import { db } from "../config";
 
-export const deleteUser = async (): Promise<string | Error> => {
+export const update = async (taskData: Omit<ITask, 'id'>): Promise<string | Error> => {
     try {
         
-        const { data } = await db().delete('/users');
+        const { data } = await db().put('/tasks', taskData);
         console.log(data);
 
         if(data.statusCode === 200)

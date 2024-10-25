@@ -4,6 +4,6 @@ export interface ITask {
 
     title: string,
     description?: string,
-    deadline?: Date,
+    deadline?: string,
     status?: "pending" | "complete",
 }

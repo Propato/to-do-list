@@ -1,9 +1,9 @@
 import { db } from "../config";
 
-export const deleteUser = async (): Promise<string | Error> => {
+export const deleteTask = async (id: number): Promise<string | Error> => {
     try {
         
-        const { data } = await db().delete('/users');
+        const { data } = await db().delete(`/tasks/${id}`);
         console.log(data);
 
         if(data.statusCode === 200)

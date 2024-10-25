@@ -15,8 +15,23 @@ export const login = async (email: string, password: string): Promise<string | E
     } catch (error: any) {
         if (error.response.data.error) {
             console.log(error.response.data.error);
-            return new Error(JSON.stringify(error.response.data.error));
+
+            let errors:string[] = [];
+
+            (Object.values(error.response.data.error) as Array<Object>).forEach(element => {
+                errors.push(...Object.values(element) as Array<string>);
+            });
+            console.log(errors);
+
+            return new Error(JSON.stringify(errors));
         }
-        return new Error((error as { message: string }).message || "An error occurred");
+        
+        if (error.response.data.message) {
+            console.log(error.response.data.message);
+            return new Error(JSON.stringify([error.response.data.message]));
+        }
+
+        console.log(error);
+        return new Error(JSON.stringify([(error as { message: string }).message || "An error occurred"]));
     }
 };

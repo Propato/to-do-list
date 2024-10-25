@@ -1,13 +1,12 @@
+import { ITask } from "../../../interfaces";
 import { db } from "../config";
 
-export const deleteUser = async (): Promise<string | Error> => {
+export const search = async (): Promise<ITask[] | Error> => {
     try {
-        
-        const { data } = await db().delete('/users');
-        console.log(data);
+        const { data } = await db().get('/tasks');
 
         if(data.statusCode === 200)
-            return data.message;
+            return data.data;
 
         console.log("An error occurred");
         return new Error("An error occurred");

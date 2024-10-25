@@ -1,46 +1,38 @@
-// import { Request, RequestHandler, Response } from "express";
-// import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import { IUser } from "../../../interfaces";
+import { db } from "../config";
 
-// import { QUERY } from "../../queries/user";
-// import { ResultSet } from "../../shared/types";
-// import { connection } from "../../shared/config";
-// import { validation } from "../../shared/middlewares";
-// import { IUser, VUser, VUserId } from "../../interfaces";
-// import { Crypto, HttpResponse } from "../../shared/services";
-
-// export const validateUpdate: RequestHandler = validation({
-//     body: VUser,
-//     header: VUserId
-// });
-
-// export const update = async (req: Request<{}, {}, IUser>, res: Response): Promise<Response<HttpResponse>> => {
-
-//     let user: IUser = { ...req.body };
-//     const userId = Number(String(req.headers.userId));
-//     user.password = await Crypto.hashPassword(user.password);
-
-//     try {
-//         const pool = await connection();
-//         const result: ResultSet = await pool.query(QUERY.SELECT_NAME, [userId]);
+export const update = async (userData: Omit<IUser, 'id'>): Promise<string | Error> => {
+    try {
         
-//         if((result[0] as Array<ResultSet>).length > 0){
-//             await pool.query(QUERY.UPDATE, [...Object.values(user), userId]);
+        const { data } = await db().put('/users', userData);
+        console.log(data);
 
-//             console.info(`[${new Date().toLocaleString()}] Updated`);
-//             return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User updated'));
-//         }
+        if(data.statusCode === 200)
+            return data.message;
+
+        console.log("An error occurred");
+        return new Error("An error occurred");
+
+    } catch (error: any) {
+        if (error.response.data.error) {
+            console.log(error.response.data.error);
+
+            let errors:string[] = [];
+
+            (Object.values(error.response.data.error) as Array<Object>).forEach(element => {
+                errors.push(...Object.values(element) as Array<string>);
+            });
+            console.log(errors);
+
+            return new Error(JSON.stringify(errors));
+        }
         
-//         console.info(`[${new Date().toLocaleString()}] Not Found`);
-//         return res.status(StatusCodes.NOT_FOUND).json(new HttpResponse(StatusCodes.NOT_FOUND, ReasonPhrases.NOT_FOUND, 'User not found'));
+        if (error.response.data.message) {
+            console.log(error.response.data.message);
+            return new Error(JSON.stringify([error.response.data.message]));
+        }
 
-//     } catch (error: any) {
-//         console.error(error);
-
-//         if (error.code === 'ER_DUP_ENTRY') {
-//             return res.status(StatusCodes.CONFLICT).json(new HttpResponse(StatusCodes.CONFLICT, ReasonPhrases.CONFLICT, '1 error occurred', undefined, { "body": { "email": "Email is already in use" }}));}
-
-//         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new HttpResponse(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR, 'An error occurred'));
-//     }
-// };
-
-export {};
+        console.log(error);
+        return new Error(JSON.stringify([(error as { message: string }).message || "An error occurred"]));
+    }
+};

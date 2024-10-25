@@ -1,9 +1,9 @@
 import { db } from "../config";
 
-export const deleteUser = async (): Promise<string | Error> => {
+export const updateStatus = async (id: number, complete: boolean): Promise<string | Error> => {
     try {
         
-        const { data } = await db().delete('/users');
+        const { data } = await db().put('/tasks/status', { taskId: id, status: complete ? "complete" : "pending"});
         console.log(data);
 
         if(data.statusCode === 200)

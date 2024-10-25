@@ -1,12 +1,13 @@
+import { ITask } from "../../../interfaces";
 import { db } from "../config";
 
-export const deleteUser = async (): Promise<string | Error> => {
+export const create = async (taskData: Omit<Omit<ITask, 'taskId'>, 'userId'>): Promise<string | Error> => {
     try {
         
-        const { data } = await db().delete('/users');
+        const { data } = await db().post('/tasks', taskData);
         console.log(data);
 
-        if(data.statusCode === 200)
+        if(data.statusCode === 201)
             return data.message;
 
         console.log("An error occurred");
@@ -18,7 +19,7 @@ export const deleteUser = async (): Promise<string | Error> => {
 
             let errors:string[] = [];
 
-            (Object.values(error.response.data.error) as Array<Object>).forEach(element => {
+            (Object.values(error.response.data.error as Array<Object>)).forEach(element => {
                 errors.push(...Object.values(element) as Array<string>);
             });
             console.log(errors);

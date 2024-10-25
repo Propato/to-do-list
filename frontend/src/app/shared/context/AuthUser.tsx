@@ -5,7 +5,7 @@ import { UserController } from '../services';
 interface IAuthContextData {
   logout: () => void;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<string | void>;
+  login: (email: string, password: string) => Promise<string[] | void>;
 }
 
 const AuthContext = createContext({} as IAuthContextData);
@@ -25,11 +25,11 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
     }
   }, []);
 
-
-  const handleLogin = useCallback(async (email: string, password: string) => {
+  const handleLogin = useCallback(async (email: string, password: string): Promise<string[] | undefined> => {
     const result = await UserController.login(email, password);
+    console.log(result);
     if (result instanceof Error) {
-      return result.message;
+      return JSON.parse(result.message);
     } else {
       localStorage.setItem(LOCAL_STORAGE_KEY__ACCESS_TOKEN, JSON.stringify(result));
       setAccessToken(result);

@@ -3,9 +3,16 @@ export interface IHTTPResponse {
     statusCode: number,
     httpStatus: string,
     message: string,
-    data: {
-        token: string
+    data?: {
+        token?: string
     },
-    error: {}
+    error?: {
+        body?: {
+            name?: string,
+            email?: string,
+            password?: string,
+            deadline?: string
+        }
+    }
 }
 

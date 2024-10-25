@@ -1,2 +1,4 @@
 export * from "./tasks/Tasks"
-export * from "./register/Register"
+export * from "./newUser/RegisterUser"
+export * from "./newTask/RegisterTask"
+export * from "./editTask/EditTask"
