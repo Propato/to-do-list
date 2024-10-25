@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { QUERY } from "../../queries/user";
 import { IUser, VUser } from "../../interfaces";
-import { connection } from "../../shared/config";
+import { pool } from "../../shared/config";
 import { validation } from "../../shared/middlewares";
 import { Crypto, HttpResponse } from "../../shared/services";
 
@@ -17,7 +17,6 @@ export const create = async (req: Request<{}, {}, IUser>, res: Response): Promis
     user.password = await Crypto.hashPassword(user.password);
 
     try {
-        const pool = await connection();
         await pool.query(QUERY.CREATE, Object.values(user));
     
         console.info(`[${new Date().toLocaleString()}] Created`);

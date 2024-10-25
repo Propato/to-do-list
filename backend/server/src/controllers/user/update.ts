@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { QUERY } from "../../queries/user";
 import { ResultSet } from "../../shared/types";
-import { connection } from "../../shared/config";
+import { pool } from "../../shared/config";
 import { validation } from "../../shared/middlewares";
 import { IUser, VUser, VUserId } from "../../interfaces";
 import { Crypto, HttpResponse } from "../../shared/services";
@@ -20,11 +20,10 @@ export const update = async (req: Request<{}, {}, IUser>, res: Response): Promis
     user.password = await Crypto.hashPassword(user.password);
 
     try {
-        const pool = await connection();
-        const result: ResultSet = await pool.query(QUERY.SELECT_NAME, [userId]);
+        const result: ResultSet = await pool.query(QUERY.SELECT, [userId]);
         
         if((result[0] as Array<ResultSet>).length > 0){
-            await pool.query(QUERY.UPDATE, [...Object.values(user), userId]);
+            await pool.query(QUERY.UPDATE, [user.name, user.email, user.password, userId]);
 
             console.info(`[${new Date().toLocaleString()}] Updated`);
             return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User updated'));

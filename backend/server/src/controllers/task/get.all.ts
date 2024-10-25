@@ -3,7 +3,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { QUERY } from "../../queries/task";
 import { ResultSet } from "../../shared/types";
-import { connection } from "../../shared/config";
+import { pool } from "../../shared/config";
 import { HttpResponse } from "../../shared/services";
 import { validation } from "../../shared/middlewares";
 import { VUserId, VFilter, IFilter } from "../../interfaces";
@@ -25,7 +25,6 @@ export const getAllFiltered = async (req: Request, res: Response): Promise<Respo
     const userId = Number(String(req.headers.userId));
     
     try {
-        const pool = await connection();
         const result: ResultSet = await pool.query(QUERY.SELECT_ALL, [userId, ...Object.values(filter)]);
 
         console.info(`[${new Date().toLocaleString()}] Retrieved`);

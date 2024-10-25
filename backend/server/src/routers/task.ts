@@ -9,7 +9,8 @@ TaskRouter.route('/')
     .put(TaskController.validateUpdate, TaskController.update);
 
 TaskRouter.route('/:taskId')
-    .delete(TaskController.validateDelete, TaskController.deleteTask);
+    .delete(TaskController.validateDelete, TaskController.deleteTask)
+    .get(TaskController.validateGet, TaskController.get);
     
 TaskRouter.route('/status')
     .put(TaskController.validateUpdateStatus, TaskController.updateStatus);

@@ -4,7 +4,7 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 import { IUser } from "../../interfaces";
 import { QUERY } from "../../queries/user";
 import { ResultSet } from "../../shared/types";
-import { connection } from "../../shared/config";
+import { pool } from "../../shared/config";
 import { validation } from "../../shared/middlewares";
 import { ILogin, VLogin } from "../../interfaces/login";
 import { Crypto, HttpResponse, JWT } from "../../shared/services";
@@ -18,7 +18,6 @@ export const login = async (req: Request<{}, {}, ILogin>, res: Response): Promis
     let login: ILogin = { ...req.body };
 
     try {
-        const pool = await connection();
         const result = (await pool.query(QUERY.SELECT_BY_EMAIL, [login.email]))[0] as Array<ResultSet>;
 
         if(result.length > 0){
@@ -34,7 +33,7 @@ export const login = async (req: Request<{}, {}, ILogin>, res: Response): Promis
                 }
 
                 console.info(`[${new Date().toLocaleString()}] Logged in`);
-                return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User logged in', accessToken));
+                return res.status(StatusCodes.OK).json(new HttpResponse(StatusCodes.OK, ReasonPhrases.OK, 'User logged in', { "token": accessToken }));
             }
 
             console.info(`[${new Date().toLocaleString()}] Invalid password`);

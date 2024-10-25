@@ -3,8 +3,8 @@ import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 import { QUERY } from "../../queries/task";
 import { ResultSet } from "../../shared/types";
-import { connection } from "../../shared/config";
-import { ITaskId, VTaskId, VUserId } from "../../interfaces";
+import { pool } from "../../shared/config";
+import { VTaskId, VUserId } from "../../interfaces";
 import { HttpResponse } from "../../shared/services";
 import { validation } from "../../shared/middlewares";
 
@@ -19,7 +19,6 @@ export const deleteTask = async (req: Request, res: Response): Promise<Response<
     const taskId = Number(req.params.taskId);
     
     try {
-        const pool = await connection();
         const result: ResultSet = await pool.query(QUERY.SELECT, [taskId, userId]);
         
         if((result[0] as Array<ResultSet>).length > 0){
