@@ -1,7 +1,6 @@
 export interface IFilter {
-    title?: string,
-    description?: string,
-    status?: "pending" | "complete" | "%",
-    LIMIT?: number,
-    OFFSET?: number
+    _text?: string,
+    _status?: "pending" | "complete" | "%",
+    _LIMIT?: number,
+    _PAG?: number
 }

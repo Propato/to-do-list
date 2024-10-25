@@ -81,7 +81,7 @@ export const EditTask = () => {
                         <div className="row row-cols-auto justify-content-center mb-3">
                             <div className="mb-3 col col-auto">
                                 <label htmlFor="InputStatus" className="form-label">Status</label>
-                                <select className="form-control" id="InputStatus" disabled={loading} value={status} onChange={(e) => setStatus(e.target.value) }>
+                                <select className="form-select" id="InputStatus" disabled={loading} value={status} onChange={(e) => setStatus(e.target.value) }>
                                     <option value="pending">Pending</option>
                                     <option value="complete">Complete</option>
                                 </select>

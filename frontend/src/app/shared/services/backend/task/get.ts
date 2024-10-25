@@ -3,7 +3,7 @@ import { db } from "../config";
 
 export const get = async (id: number): Promise<ITask | Error> => {
     try {
-        const { data } = await db().get(`/tasks/${id}`);
+        const { data } = await db().get(`/tasks/task/${id}`);
 
         if(data.statusCode === 200)
             return data.data;

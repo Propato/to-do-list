@@ -1,9 +1,10 @@
-import { ITask } from "../../../interfaces";
+import { IFilter, ITask } from "../../../interfaces";
 import { db } from "../config";
 
-export const search = async (): Promise<ITask[] | Error> => {
+export const search = async (filter: IFilter): Promise<ITask[] | Error> => {
     try {
-        const { data } = await db().get('/tasks');
+
+        const { data } = await db().get(`/tasks/search?_text=${filter._text}&_status=${filter._status}&_LIMIT=${filter._LIMIT}&_PAG=${filter._PAG}`);
 
         if(data.statusCode === 200)
             return data.data;
