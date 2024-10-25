@@ -36,7 +36,7 @@ case $1 in
    ;;
    -h|--help)
     	echo "
-   start.sh [ -b | -t [ --app | --db ] | -l [ --app | --db ] | -d | -r | -h ]
+   scripts.sh [ -b | -t [ --app | --db ] | -l [ --app | --db ] | -d | -r | -h ]
 
     -b   | --build      Builda a imagem Docker;
     -t   | --terminal   Abre o terminal do container tasks-app ou tasks-db, para ver e manipular arquivos;
