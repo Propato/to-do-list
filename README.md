@@ -96,9 +96,12 @@ Assim, foi passado neste repositório um .env já com os valores definidos.
 
 #### Scripts
 
-É necessário permitir a execução do <a href="./scripts.sh">script</a> com:
+É necessário permitir a execução dos dois <a href="./scripts.sh">scripts</a> com:
 ```bash
 chmod +x ./scripts.sh
+cd backend
+chmod +x ./scripts.sh
+cd ..
 ```
 
 Assim, é possível ver as opções de comandos executando:
@@ -111,20 +114,20 @@ Assim, é possível ver as opções de comandos executando:
 Como já existe o .env no repositório e com o script já configurado, basta executar:
 
 ```bash
-sudo ./scripts -b
+sudo ./scripts.sh -b
 ```
 
 ### Encerrando App
 
 ```bash
 Ctrl + C
-sudo ./scripts -d
+sudo ./scripts.sh -d
 ```
 
 ### Limpando dados & arquivos
 
 ```bash
-sudo ./scripts -r
+sudo ./scripts.sh -r
 ```
 
 

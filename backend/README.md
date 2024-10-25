@@ -52,35 +52,35 @@ Para garantir funcionamento correto, sempre que alterar o .env, é recomendado e
 
 Com o script configurado, para buildar a imagem e iniciar a aplicação, executa-se:
 ```bash
-sudo ./scripts -b | --build
+sudo ./scripts.sh -b | --build
 ```
 
 ### Logs
 
 Para ver os logs dos containers:
 ```bash
-sudo ./scripts -l | --logs  --app | --db
+sudo ./scripts.sh -l | --logs  --app | --db
 ```
 
 ### Terminal
 
 Para acessar o terminal de um containers:
 ```bash
-sudo ./scripts -t | --terminal --app | --db
+sudo ./scripts.sh -t | --terminal --app | --db
 ```
 
 ### Encerrar
 
 Para encerrar a aplicação:
 ```bash
-sudo ./scripts -d | --down
+sudo ./scripts.sh -d | --down
 ```
 
 ### Limpar Docker
 
 Para remover a imagem, containers, volume e network criadas, executa-se:
 ```bash
-sudo ./scripts -r | --remove
+sudo ./scripts.sh -r | --remove
 ```
 
 ## Regras de Negócio
