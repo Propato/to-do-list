@@ -88,41 +88,32 @@ As ferramentas escolhidas para o frontend foram:
 
 Porém, é necessário passar a variável APP_MODE=dev para o backend para que ele use os valores padrões com maior segurança.
 
-Recomenda-se seguir o <a href="./.env_sample">.env_sample</a>
+Recomenda-se seguir o <a href="./.env_sample">.env_sample</a>, que é um .env único usado tanto para o back quanto para o front.
 
 ### Scripts
 
-É necessário permitir a execução dos dois <a href="./scripts.sh">scripts</a> com:
+É necessário permitir a execução com:
 
 ```bash
-chmod +x ./scripts.sh
-```
-
-Assim, é possível ver as opções de comandos executando:
-
-```bash
-./scripts.sh -h | --help
+chmod +x ./*.sh
 ```
 
 ### Executando
 
-Como já existe o .env no repositório e com o script já configurado, basta executar:
-
 ```bash
-sudo ./scripts.sh -b
+./start.sh
 ```
 
-### Encerrando App
+### Encerrando
 
 ```bash
-Ctrl + C
-sudo ./scripts.sh -d
+./stop.sh
 ```
 
-### Limpando dados & arquivos
+### Limpando recursos Docker
 
 ```bash
-sudo ./scripts.sh -r
+./clean.sh
 ```
 
 <h6 align="center">by David Propato <a href="https://github.com/Propato">@Propato</a> </h6>
