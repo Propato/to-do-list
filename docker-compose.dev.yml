@@ -1,0 +1,66 @@
+services:
+  # FRONTEND - React.js
+  to-do-frontend:
+    build: .
+    container_name: to-do-frontend
+    image: to-do-list-frontend:v1
+    command: ["npm", "run", "start"]
+    volumes:
+      - ./to-do-list-frontend/src:/app/src
+      # - ./to-do-list-frontend/public:/app/public
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./.env
+    networks:
+      - to-do-network
+    depends_on:
+      - to-do-backend
+
+  # BACKEND - Nodejs
+  to-do-backend:
+    build: ./to-do-list-backend/server
+    container_name: to-do-backend
+    image: to-do-list-backend:v1
+    command: ["start:dev"]
+    volumes:
+      - ./to-do-list-backend/server/src:/usr/app/src
+    env_file:
+      - ./.env
+    environment:
+      SERVICE_TAGS: dev
+      SERVICE_NAME: node-app
+    ports:
+      - ${SERVER_PORT:-8000}:${SERVER_PORT:-8000}
+    depends_on:
+      - mysqldb
+    networks:
+      - to-do-network
+
+  # DATABASE - MySQL
+  mysqldb:
+    image: mysql:8
+    container_name: to-do-mysqldb
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./to-do-list-backend/db/init.sql:/docker-entrypoint-initdb.d/0_init.sql
+      - database:/var/lib/mysql
+    ports:
+      - ${DB_PORT:-5000}:3000
+    environment:
+      MYSQL_DATABASE: Tasks-db
+      MYSQL_USER: ${DB_USER:-userDefault}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-passwordDefault}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootPasswordDefault}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql-db
+    networks:
+      - to-do-network
+
+volumes:
+  database:
+
+# Global network declaration
+networks:
+  to-do-network:
+    driver: bridge

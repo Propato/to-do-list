@@ -1,110 +1,105 @@
-# Teste Athenas
+# To Do List
 
-### CRUD: To-Do list
+Este é um projeto consiste em uma aplicação CRUD simples para um sistema de gerenciamento de tarefas (to-do list) utilizando React, Typescript e Bootstrap no Frontend e Nodejs, Typescript e MySQL no Backend.
 
-Este é um projeto para a etapa de teste do processo seletivo para a vaga de estágio na Athenas Tecnologia. Consiste em desenvolver uma aplicação CRUD simples utilizando a stack de minha preferência onde devo criar um sistema de gerenciamento de tarefas (to-do list).
+Este repositório utiliza Docker para unir as aplicações do front e back end em um sistema isolado e preparado para executar em qualquer ambiente.
 
-## Minha Solução
+## Funcionalidades
 
-Foi desenvolvido um projeto fullstack, com backend e frontend que se comunicam para gerir os dados e apresenta-los, armazenando-os com segurança e persistência. possibilitando as seguintes funcionalidades:
+- Logar
+- Criar perfil
+- Visualizar perfil
+- Editar Perfil
+- Excluir Perfil
+- Criar tarefas
+- Visualizar tarefas em tabela paginada
+- Filtrar tarefas por status
+- Buscar tarefas por título e descrição
+- Marcar tarefas como concluídas
+- Editar tarefas
+- Excluir tarefas
 
- - Logar
- - Criar perfil
- - Visualizar perfil
- - Editar Perfil
- - Excluir Perfil
- - Criar tarefas
- - Visualizar tarefas em tabela paginada
- - Filtrar tarefas por status
- - Buscar tarefas por título e descrição
- - Marcar tarefas como concluídas
- - Editar tarefas
- - Excluir tarefas
+## Regras de Negocio
 
-As regras de negocio aplicadas são:
+### Usuários
 
-#### Usuários
-
-| Campo | Regras |
-| :----------: | :-------------: |
-| name | 2 <= tamanho <= 50 |
-| name | Obrigatório |
-| email | 5 <= tamanho <= 60 |
-| email | incluir @ no meio |
-| email | Obrigatório |
+|  Campo   |       Regras       |
+| :------: | :----------------: |
+|   name   | 2 <= tamanho <= 50 |
+|   name   |    Obrigatório     |
+|  email   | 5 <= tamanho <= 60 |
+|  email   | incluir @ no meio  |
+|  email   |    Obrigatório     |
 | password | 8 <= tamanho <= 30 |
-| password | Obrigatório |
+| password |    Obrigatório     |
 
-#### Tarefas
+### Tarefas
 
-| Campo | Regras |
-| :----------: | :-------------: |
-| title | 3 <= tamanho <= 100 |
-| title | Obrigatório |
-| description | tamanho <= 300 |
-| description | Opcional |
-| deadline | Data futura |
-| deadline | Obrigatório |
-| status | "pending" ou "complete" |
-| status | Sṍ pode ser "complete" se estiver dentro do prazo |
-| status | Obrigatório |
+|    Campo    |                      Regras                       |
+| :---------: | :-----------------------------------------------: |
+|    title    |                3 <= tamanho <= 100                |
+|    title    |                    Obrigatório                    |
+| description |                  tamanho <= 300                   |
+| description |                     Opcional                      |
+|  deadline   |                    Data futura                    |
+|  deadline   |                    Obrigatório                    |
+|   status    |              "pending" ou "complete"              |
+|   status    | Sṍ pode ser "complete" se estiver dentro do prazo |
+|   status    |                    Obrigatório                    |
 
-### :gear: Tools
+## :gear: Tools
 
-#### Backend
+### Backend
 
 Foi desenvolvida uma API Rest para o backend da aplicação, realizando o CRUD de usuários e tarefas, aplicando todas as regras de negócios e realizando o login de usuário.
 
-As ferramentas escolhidas para o gerenciamento do backend foram:
+As ferramentas escolhidas para o backend foram:
 
 | <img alt="Icon TypeScript" title="TypeScript" height="60" src="https://github.com/Propato/movies-review/assets/84464307/a3c73786-1f20-4910-a20d-75bb006bd31e"> | <img alt="Icon Node" title="Node" height="60" src="https://github.com/Propato/movies-review/assets/84464307/3a89b223-3772-4168-8eb0-a09493f52b9f"> | <img alt="Icon MySQL" title="MySQL" height="60" src="https://github.com/Propato/movies-review/assets/84464307/cae15bc6-56cf-4659-9f25-843872d4eba3"> | <img alt="Icon Docker" title="Docker" height="60" src="https://github.com/Propato/movies-review/assets/84464307/2722d075-35c7-498c-bef4-310a86d317a8"> |
-| :----------: | :-------------: | :------: | :------: |
-| TypeScript | Node | MySQL | Docker |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                           TypeScript                                                                           |                                                                        Node                                                                        |                                                                        MySQL                                                                         |                                                                         Docker                                                                         |
 
-> Mais informações (como endpoints e as regras aplicadas) na pasta <a href="./backend/">backend</a>.
+> Mais informações (como endpoints e as regras aplicadas) na pasta <a href="./to-do-list-backend/">backend</a>.
 
-#### Frontend
+### Frontend
 
 Foi construído uma interface visualmente agradável, responsiva e funcional, apresentando todas as funcionalidades exigidas e algumas mais.
 
-As ferramentas escolhidas para o gerenciamento do backend foram:
+As ferramentas escolhidas para o frontend foram:
 
 | <img alt="Icon TypeScript" title="TypeScript" height="60" src="https://github.com/Propato/movies-review/assets/84464307/a3c73786-1f20-4910-a20d-75bb006bd31e"> | <img alt="Icon React" title="React" height="60" src="https://github.com/user-attachments/assets/26ad264a-fb5f-4133-806a-41b13bd0bb34"> | <img alt="Icon Bootstrap" title="Bootstrap" height="60" src="https://github.com/user-attachments/assets/677f865b-8e77-4a24-b56c-0ee6ebc3ae83"> |
-| :----------: | :-------------: | :------: |
-| TypeScript | React | Bootstrap |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                           TypeScript                                                                           |                                                                 React                                                                  |                                                                   Bootstrap                                                                    |
 
-> Mais informações (como rotas e as regras aplicadas) na pasta <a href="./frontend/">frontend</a>.
+> Mais informações (como rotas e as regras aplicadas) na pasta <a href="./to-do-list-frontend/">frontend</a>.
 
-### Pré-requisitos
+## Pré-requisitos
 
-#### Versões utilizadas
+### Versões utilizadas
 
-| Ferramenta | Versão |
-| :----------: | :-------------: |
-| Nodejs | 18.19.1 |
-| npm | 9.2.0 |
-| Docker | 27.3.1 |
+|   Ferramenta   | Versão |
+| :------------: | :----: |
+|     Docker     | 27.3.1 |
 | Docker Compose | 2.20.3 |
 
-#### .env
+### .env
 
 É usado um .env para o backend e outro para o frontend para garantir maior versatilidade e modularização do código, contudo, há valores padrões pré-estabelecidos que garantem a funcionalidade mesmo sem o .env.
 
 Porém, é necessário passar a variável APP_MODE=dev para o backend para que ele use os valores padrões com maior segurança.
 
-Assim, foi passado neste repositório um .env já com os valores definidos.
+Recomenda-se seguir o <a href="./.env_sample">.env_sample</a>
 
-#### Scripts
+### Scripts
 
 É necessário permitir a execução dos dois <a href="./scripts.sh">scripts</a> com:
+
 ```bash
 chmod +x ./scripts.sh
-cd backend
-chmod +x ./scripts.sh
-cd ..
 ```
 
 Assim, é possível ver as opções de comandos executando:
+
 ```bash
 ./scripts.sh -h | --help
 ```
@@ -129,6 +124,5 @@ sudo ./scripts.sh -d
 ```bash
 sudo ./scripts.sh -r
 ```
-
 
 <h6 align="center">by David Propato <a href="https://github.com/Propato">@Propato</a> </h6>
